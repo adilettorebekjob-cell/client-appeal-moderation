@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: moderation-service
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    consumer:
+      group-id: moderation-service-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        isolation.level: read_committed
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 3
+      properties:
+        enable.idempotence: true
+        max.in.flight.requests.per.connection: 5
+
+    listener:
+      ack-mode: manual
+
+server:
+  port: 8080
+
+enrichment:
+  service:
+    url: http://localhost:8081
+    timeout: 5000
+
+kafka:
+  topics:
+    appeals: appeals-topic
+    approved: approved-topic
+    review: review-topic
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    kz.caspi.lab.moderation: DEBUG
+    org.springframework.kafka: INFO
+    org.apache.kafka: WARN

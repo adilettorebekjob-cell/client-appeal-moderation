@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: enrichment-service
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=5m
+
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    kz.caspi.lab.enrichment: DEBUG
+    org.springframework.web: INFO

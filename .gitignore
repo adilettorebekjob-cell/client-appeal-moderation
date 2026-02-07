@@ -1,0 +1,23 @@
+# Maven
+target/
+**/target/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.project
+*.classpath
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & runtime files
+*.log
+processed_appeals.txt
+
+# Env
+.env
+*.env
